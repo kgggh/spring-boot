@@ -8,17 +8,18 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.bugny.myboot.domain.User;
-import com.bugny.myboot.repository.UserRepository;
+import com.bugny.myboot.service.UserSerive;
 
 @Controller
 @RequestMapping("user")
 public class UserController {
 
 	@Autowired
-	private UserRepository userRepository;
+	private UserSerive userService;
 	
 	@GetMapping("/info")
 	public String userInfo(Model model) {
@@ -27,7 +28,7 @@ public class UserController {
 	
 	@GetMapping("/list")
 	public String userList(Model model) {
-		List<User> user = userRepository.findAll();
+		List<User> user = userService.userList();
 		model.addAttribute("user",user);
 		return "user/list";
 	}
@@ -36,11 +37,13 @@ public class UserController {
 		
 		return "user/register";
 	}
-	@GetMapping("/registerOk")
-	public String registerOK(Model model) {
+	@PostMapping("/registerOK")
+	public String registerOK(User user) {
+		userService.register(user);
+		System.out.println(user);
 		return "redirect:/";
 	}
-	@GetMapping("/login")
+	@PostMapping("/login")
 	public String login(Model model) {
 		return "redirect:/";
 	}

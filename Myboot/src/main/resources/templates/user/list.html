@@ -37,8 +37,6 @@
     <script src="../js/jquery.dataTables.min.js"></script>
     <script src="../js/dataTables.bootstrap4.min.js"></script>
 
-    <!-- Page level custom scripts -->
-    <script src="../js/datatables-demo.js"></script>
 
 </head>
 
@@ -208,6 +206,9 @@
                                             <th>번호</th>
                                             <th>아이디</th>
                                             <th>이름</th>
+                                            <th>이메일</th>
+                                            <th>가입일</th>
+                                            <th>수정일</th>
                                         </tr>
                                     </thead>
                                     <tfoot>
@@ -215,13 +216,19 @@
                                             <th>번호</th>
                                             <th>아이디</th>
                                             <th>이름</th>
+                                            <th>이메일</th>
+                                            <th>가입일</th>
+                                            <th>수정일</th>
                                         </tr>
                                     </tfoot>
                                     <tbody>
                                         <tr th:each="user : ${user}">
-                                            <td th:text="${user.id}">1</td>
+                                            <td th:text="${user.id}"></td>
                                             <td th:text="${user.userId}"></td>
                                             <td th:text="${user.userName}"></td>
+                                            <td th:text="${user.email}"></td>
+                                           	<td th:text="${#temporals.format(user.createdDate, 'yyyy-MM-dd HH:mm')}"></td>
+                                           	<td th:text="${#temporals.format(user.updatedDate, 'yyyy-MM-dd HH:mm')}"></td>
                                         </tr>
                                     </tbody>
                                 </table>
@@ -234,7 +241,6 @@
 					
             	</div>
             <!-- End of Main Content -->
-
             <!-- Footer -->
             <footer class="sticky-footer bg-white">
                 <div class="container my-auto">

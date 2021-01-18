@@ -1,5 +1,7 @@
 package com.bugny.myboot.domain;
 
+import java.time.LocalDateTime;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -9,14 +11,14 @@ import javax.persistence.Table;
 
 import lombok.AccessLevel;
 import lombok.Builder;
-import lombok.Data;
+import lombok.Getter;
 import lombok.NoArgsConstructor;
 
-
+@Getter
 @Entity
-@Data
+@Table
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
-public class User {
+public class User extends BaseTimeEntity{
 	@Id 
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private long id;
@@ -32,5 +34,25 @@ public class User {
 	
 	@Column(name = "email",nullable = false)
 	private String email;
+	
+    
+    @Builder
+	public User( String userId, String password, String userName, String email) {
+		this.userId = userId;
+		this.password = password;
+		this.userName = userName;
+		this.email = email;
+	}
+    
+    public User toEntity() {
+        return User.builder()
+        		.userId(userId)
+        		.password(password)
+        		.userName(userName)
+        		.email(email)
+        		.build();
+                   
+    }
+	
 	
 }
